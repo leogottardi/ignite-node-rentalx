@@ -6,10 +6,10 @@
   "database": "rentalx",
   "port": 5432,
   "migrations": [
-    "./src/database/migrations/*.ts"
+    "./src/shared/infra/typeorm/migrations/*.ts"
   ],
   "cli": {
-    "migrationsDir": "./src/database/migrations"
+    "migrationsDir": "./src/shared/typeorm/migrations"
   },
   "entities": [
     "./src/modules/**/entities/*.ts"
