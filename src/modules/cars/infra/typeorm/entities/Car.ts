@@ -1,5 +1,14 @@
-import { randomUUID } from 'crypto';
-import { Column, Entity, PrimaryColumn, CreateDateColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  PrimaryColumn,
+  CreateDateColumn,
+  JoinColumn,
+  ManyToOne,
+} from 'typeorm';
+import { Category } from './Category';
+
+import { v4 as uuidv4 } from 'uuid';
 
 @Entity('cars')
 class Car {
@@ -13,6 +22,9 @@ class Car {
   description: string;
 
   @Column()
+  available: boolean;
+
+  @Column()
   daily_rate: number;
 
   @Column()
@@ -24,12 +36,19 @@ class Car {
   @Column()
   brand: string;
 
+  @ManyToOne(() => Category)
+  @JoinColumn({ name: 'category_id' })
+  category: Category;
+
   @Column()
   category_id: string;
 
+  @CreateDateColumn()
+  created_at: Date;
+
   constructor() {
     if (!this.id) {
-      this.id = randomUUID();
+      this.id = uuidv4();
     }
   }
 }
