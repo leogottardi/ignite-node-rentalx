@@ -23,10 +23,8 @@ class CarsRepository implements ICarsRepository {
 
   async findAvailable(data: IFindAvailableCarDTO): Promise<Car[]> {
     return this.repository.find({
-      where: {
-        available: true,
-        ...data,
-      },
+      ...data,
+      available: true,
     });
   }
 }

@@ -29,10 +29,11 @@ class CarsRepositoryInMemory implements ICarsRepository {
   }: IFindAvailableCarDTO): Promise<Car[]> {
     const cars = this.cars.filter(car => {
       if (
-        car.available &&
-        ((name && car.name === name) ||
-          (category_id && car.category_id === category_id) ||
-          (brand && car.brand === brand))
+        (car.available &&
+          ((name && car.name === name) ||
+            (category_id && car.category_id === category_id) ||
+            (brand && car.brand === brand))) ||
+        (!name && !brand && !category_id)
       ) {
         return car;
       }

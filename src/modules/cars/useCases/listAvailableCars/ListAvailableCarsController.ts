@@ -1,17 +1,17 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import { ListCarsUseCase } from './ListCarsUseCase';
+import { ListAvailableCarsUseCase } from './ListAvailableUseCase';
 import { IFindAvailableCarDTO } from '../../dtos/IFindAvailableCarDTO';
 
-class ListCarsController {
+class ListAvailableCarsController {
   async handle(request: Request, response: Response): Promise<Response> {
     const data: IFindAvailableCarDTO = request.query;
 
-    const listCarsUseCase = container.resolve(ListCarsUseCase);
+    const listCarsUseCase = container.resolve(ListAvailableCarsUseCase);
     const cars = await listCarsUseCase.execute(data);
 
-    return response.status(200).json(cars);
+    return response.json(cars);
   }
 }
 
-export { ListCarsController };
+export { ListAvailableCarsController };

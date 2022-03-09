@@ -1,17 +1,17 @@
 import { Car } from '@modules/cars/infra/typeorm/entities/Car';
 import { CarsRepositoryInMemory } from '@modules/cars/repositories/in-memory/CarsRepositoryInMemory';
 import { CategoriesRepositoryInMemory } from '@modules/cars/repositories/in-memory/CategoriesRepositoryInMemory';
-import { ListCarsUseCase } from './ListCarsUseCase';
+import { ListAvailableCarsUseCase } from './ListAvailableUseCase';
 
 let categoriesRepositoryInMemory: CategoriesRepositoryInMemory;
 let carsRepositoryInMemory: CarsRepositoryInMemory;
-let listCarsUseCase: ListCarsUseCase;
+let listCarsUseCase: ListAvailableCarsUseCase;
 
 describe('List Cars', () => {
   beforeEach(async () => {
     categoriesRepositoryInMemory = new CategoriesRepositoryInMemory();
     carsRepositoryInMemory = new CarsRepositoryInMemory();
-    listCarsUseCase = new ListCarsUseCase(carsRepositoryInMemory);
+    listCarsUseCase = new ListAvailableCarsUseCase(carsRepositoryInMemory);
 
     await categoriesRepositoryInMemory.create({
       name: 'Category Audi',
@@ -32,10 +32,17 @@ describe('List Cars', () => {
   });
 
   it('should be able to list all available cars', async () => {
-    const [car]: Car[] = await listCarsUseCase.execute();
-
+    const [car]: Car[] = await listCarsUseCase.execute({});
     expect(car.available).toBe(true);
   });
 
-  it('should be able to list all available cars by name', async () => {});
+  it('should be able to list all available cars by name', async () => {
+    const [car]: Car[] = await listCarsUseCase.execute({ name: 'Audi name' });
+    expect(car.name).toBe('Audi name');
+  });
+
+  it('should be able to list all available cars by brand', async () => {
+    const [car]: Car[] = await listCarsUseCase.execute({ brand: 'Audi brand' });
+    expect(car.brand).toBe('Audi brand');
+  });
 });
