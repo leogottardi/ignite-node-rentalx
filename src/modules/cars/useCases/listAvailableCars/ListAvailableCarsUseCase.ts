@@ -14,6 +14,7 @@ class ListAvailableCarsUseCase {
     @inject('CarsRepository')
     private carsRepository: ICarsRepository,
   ) {}
+
   async execute(data: IRequest): Promise<Car[]> {
     const cars = this.carsRepository.findAvailable(data);
     return cars;

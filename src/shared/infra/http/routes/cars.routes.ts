@@ -5,12 +5,16 @@ import { ensureAdmin } from '../middlewares/ensureAdmin';
 import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
 
 const createCarController = new CreateCarController();
-const listCarsController = new ListAvailableCarsController();
+const listAvailableCarsController = new ListAvailableCarsController();
 const carsRoutes = Router();
 
-carsRoutes.use(ensureAuthenticated, ensureAdmin);
+carsRoutes.post(
+  '/',
+  ensureAuthenticated,
+  ensureAdmin,
+  createCarController.handle,
+);
 
-carsRoutes.post('/', createCarController.handle);
-carsRoutes.get('/', listCarsController.handle);
+carsRoutes.get('/available', listAvailableCarsController.handle);
 
 export { carsRoutes };
