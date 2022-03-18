@@ -10,8 +10,9 @@ import {
 } from 'typeorm';
 import { Category } from './Category';
 
-import { v4 as uuidv4 } from 'uuid';
 import { Specification } from './Specification';
+
+import { randomUUID } from 'crypto';
 
 @Entity('cars')
 class Car {
@@ -59,7 +60,7 @@ class Car {
 
   constructor() {
     if (!this.id) {
-      this.id = uuidv4();
+      this.id = randomUUID();
     }
   }
 }

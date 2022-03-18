@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from 'uuid';
+import { randomUUID } from 'crypto';
 import { hash } from 'bcrypt';
 
 import createConnection from '../index';
@@ -6,7 +6,7 @@ import createConnection from '../index';
 async function create() {
   const connection = await createConnection('localhost');
 
-  const id = uuidv4();
+  const id = randomUUID();
   const password = await hash('admin', 8);
 
   await connection.query(

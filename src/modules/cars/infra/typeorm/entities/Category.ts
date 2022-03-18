@@ -1,7 +1,7 @@
-import { v4 as uuidV4 } from 'uuid';
-import { Column, Entity, PrimaryColumn, CreateDateColumn } from "typeorm";
+import { randomUUID } from 'crypto';
+import { Column, Entity, PrimaryColumn, CreateDateColumn } from 'typeorm';
 
-@Entity("categories")
+@Entity('categories')
 class Category {
   @PrimaryColumn()
   id?: string;
@@ -17,9 +17,9 @@ class Category {
 
   constructor() {
     if (!this.id) {
-      this.id = uuidV4();
+      this.id = randomUUID();
     }
   }
 }
 
-export { Category }
+export { Category };
