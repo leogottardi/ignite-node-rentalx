@@ -1,20 +1,37 @@
 import { AppError } from '@errors/AppError';
+import { Car } from '@modules/cars/infra/typeorm/entities/Car';
 import { ICarsRepository } from '@modules/cars/repositories/ICarsRepository';
+import { ISpecificationsRepository } from '@modules/cars/repositories/ISpecificationsRepository';
+import { inject, injectable } from 'tsyringe';
 
 interface IRequest {
-  id_car: string;
-  id_specification: string;
+  car_id: string;
+  specifications_id: string[];
 }
-
+@injectable()
 class CreateCarSpecificationUseCase {
-  constructor(private carsRepository: ICarsRepository) {}
-  async execute({ id_car, id_specification }: IRequest): Promise<void> {
-    const car = await this.carsRepository.findById(id_car);
+  constructor(
+    @inject('CarsRepository')
+    private carsRepository: ICarsRepository,
+
+    @inject('SpecificationsRepository')
+    private specificationsRepository: ISpecificationsRepository,
+  ) {}
+
+  async execute({ car_id, specifications_id }: IRequest): Promise<Car> {
+    const car = await this.carsRepository.findById(car_id);
+    specifications_id;
 
     if (!car) {
       throw new AppError('Car not found');
     }
-    return;
+
+    const specifications = await this.specificationsRepository.findByIds(
+      specifications_id,
+    );
+    car.specifications = specifications;
+
+    return await this.carsRepository.create(car);
   }
 }
 

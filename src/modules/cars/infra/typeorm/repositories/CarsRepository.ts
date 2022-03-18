@@ -11,6 +11,10 @@ class CarsRepository implements ICarsRepository {
     this.repository = getRepository(Car);
   }
 
+  findById(id: string): Promise<Car> {
+    return this.repository.findOne({ id });
+  }
+
   async create(data: ICreateCarDTO): Promise<Car> {
     const car = this.repository.create(data);
 
