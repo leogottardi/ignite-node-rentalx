@@ -1,5 +1,6 @@
 import { ICreateCarDTO } from '@modules/cars/dtos/ICreateCarDTO';
 import { IFindAvailableCarDTO } from '@modules/cars/dtos/IFindAvailableCarDTO';
+import { IUpdateCarDTO } from '@modules/cars/dtos/IUpdateCarDTO';
 import { ICarsRepository } from '@modules/cars/repositories/ICarsRepository';
 import { getRepository, Repository } from 'typeorm';
 import { Car } from '../entities/Car';
@@ -9,6 +10,15 @@ class CarsRepository implements ICarsRepository {
 
   constructor() {
     this.repository = getRepository(Car);
+  }
+  async updateAvailable(id: string, available: boolean): Promise<void> {
+    await this.repository
+      .createQueryBuilder()
+      .update()
+      .set({ available })
+      .where('id = :id')
+      .setParameters({ id })
+      .execute();
   }
 
   findById(id: string): Promise<Car> {
