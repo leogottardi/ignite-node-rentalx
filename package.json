@@ -40,10 +40,10 @@
     "typeorm": "^0.2.41"
   },
   "scripts": {
-    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --respawn src/shared/infra/http/server.ts",
-    "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli",
+    "dev": "NODE_ENV=dev ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --respawn src/shared/infra/http/server.ts",
+    "typeorm": "NODE_ENV=dev ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli",
     "migration:create": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli 'migration:create' '-n' ",
     "test": "NODE_ENV=test jest",
-    "seed:admin": "ts-node-dev src/shared/infra/typeorm/seed/admin.ts"
+    "seed:admin": "NODE_ENV=dev ts-node-dev src/shared/infra/typeorm/seed/admin.ts"
   }
 }

@@ -19,6 +19,8 @@ services:
     build: .
     ports:
       - 3333:3333
+    environment:
+      - NODE_ENV=dev
     volumes:
       - .:/usr/app
     network_mode: host
