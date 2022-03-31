@@ -1,8 +1,10 @@
+import { Car } from '@modules/cars/infra/typeorm/entities/Car';
 import { randomUUID } from 'crypto';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
