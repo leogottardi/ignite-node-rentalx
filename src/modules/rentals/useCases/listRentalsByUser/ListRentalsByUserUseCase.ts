@@ -1,11 +1,10 @@
-import { RentalsRepository } from '@modules/rentals/infra/typeorm/repositories/RentalsRepository';
 import { IRentalsRepository } from '@modules/rentals/repositories/IRentalsRepository';
 import { inject, injectable } from 'tsyringe';
 
 @injectable()
 class ListRentalsByUserUseCase {
   constructor(
-    @inject('RentalRepository')
+    @inject('RentalsRepository')
     private rentalsRepository: IRentalsRepository,
   ) {}
 
