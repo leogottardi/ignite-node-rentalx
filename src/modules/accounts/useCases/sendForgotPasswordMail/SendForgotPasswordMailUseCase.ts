@@ -1,3 +1,4 @@
+import { resolve } from 'path';
 import { AppError } from '@errors/AppError';
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
 import { IUsersTokensRepository } from '@modules/accounts/repositories/IUsersTokensRepository';
@@ -36,10 +37,25 @@ class SendForgotPasswordMailUseCase {
       expires_date,
     });
 
+    const templatePath = resolve(
+      __dirname,
+      '..',
+      '..',
+      'views',
+      'emails',
+      'forgotPassword.hbs',
+    );
+
+    const variables = {
+      name: user.name,
+      link: `${process.env.FORGOT_MAIL_URL}${token}`,
+    };
+
     await this.mailProvider.sendMail(
       email,
       'Recuperação de senha',
-      `O token para o reset é ${token}`,
+      variables,
+      templatePath,
     );
   }
 }
