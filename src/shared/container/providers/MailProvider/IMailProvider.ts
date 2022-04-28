@@ -2,7 +2,7 @@ interface IMailProvider {
   sendMail(
     to: string,
     subject: string,
-    vaiables: any,
+    variables: any,
     path: string,
   ): Promise<void>;
 }
