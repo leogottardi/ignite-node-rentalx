@@ -32,6 +32,7 @@ class S3StorageProvider implements IStorageProvider {
         Key: file,
         Body: fileContent,
         ContentType: contentType,
+        ACL: 'public-read'
       })
       .promise();
 
