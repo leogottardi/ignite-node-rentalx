@@ -5,13 +5,9 @@
   "password": "ignite",
   "database": "rentalx",
   "port": 5432,
-  "migrations": [
-    "./src/shared/infra/typeorm/migrations/*.ts"
-  ],
+  "migrations": ["./dist/shared/infra/typeorm/migrations/*.ts"],
   "cli": {
-    "migrationsDir": "./src/shared/infra/typeorm/migrations"
+    "migrationsDir": "./dist/shared/infra/typeorm/migrations"
   },
-  "entities": [
-    "./src/modules/**/entities/*.ts"
-  ]
+  "entities": ["./dist/modules/**/entities/*.ts"]
 }
